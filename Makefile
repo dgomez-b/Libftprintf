@@ -6,17 +6,15 @@
 #    By: dgomez-b <dgomez-b@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/24 14:30:30 by dgomez-b          #+#    #+#              #
-#    Updated: 2022/01/24 14:30:42 by dgomez-b         ###   ########.fr        #
+#    Updated: 2022/01/24 14:46:38 by dgomez-b         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=		libftprintf.a
 
-LIBFT	=		./Libft
+LIBFT	=		./libft
 
-SRCS	=		ft_printf.c \
-				ft_translate.c \
-				ft_itobase.c
+SRCS	=		ft_printf.c
 
 OBJS	=		$(SRCS:.c=.o)
 
