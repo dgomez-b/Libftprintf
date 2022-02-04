@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgomez-b <dgomez-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/24 14:36:48 by dgomez-b          #+#    #+#             */
-/*   Updated: 2022/01/24 16:23:55 by dgomez-b         ###   ########.fr       */
+/*   Created: 2022/02/03 08:15:49 by dgomez-b          #+#    #+#             */
+/*   Updated: 2022/02/04 09:34:35 by dgomez-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,98 +14,70 @@
 
 #include "libftprintf.h"
 
-/* ******************************** LIBRARIES ******************************* */
+/* ******************************** FUNCTIONS ******************************* */
 
-static int	ft_freemat(void **mat)
+static char	*ft_translate(va_list *list, char c)
 {
-	int	i;
-
-	i = 0;
-	while (mat[i])
-		free(mat[i++]);
-	if (mat)
-		free(mat);
-	return (0);
+	if (c == '%')
+		return (ft_strdup(&c));
+	if (c == 'c')
+		return (ft_strdup(va_arg(*list, int)));
+	if (c == 's')
+		return (ft_strdup(va_arg(*list, char *)));
+	return (ft_strdup("\0"));
 }
 
-static int	ft_amountchar(const char *s, char c)
+static char	*ft_substrc(const char *s, char c)
 {
 	int	i;
-	int	amount;
-
-	if (!s)
-		return (-1);
-	i = 0;
-	amount = 0;
-	while (s[i])
-		if (s[i++] == c)
-			amount++;
-	return (amount);
-}
-
-static char	**ft_args(const char *s, va_list list)
-{
-	char	**mat;
-	int		i;
-	int		j;
 
 	if (!s)
 		return (0);
-	mat = ft_calloc(ft_amountchar(s, '%') + 1, sizeof(char *));
+	if (!c)
+		return (ft_strdup(s));
 	i = 0;
-	j = 0;
-	while (s[i])
-	{
-		if (s[i++] == '%')
-		{
-			mat[j] = ft_strdup(va_arg(list, char *));
-			if (!mat[j++])
-			{
-				ft_freemat((void *)mat);
-				return (0);
-			}
-		}
-	}
-	return (mat);
+	while (s[i] && s[i] != c)
+		i++;
+	return (ft_substr(s, 0, i));
 }
 
-static int	ft_printf_write(const char *s, char **mat)
+static char	*ft_joinargs(const char *s, va_list list)
 {
-	int	i;
-	int	j;
-	int	amount;
+	char	*str;
+	char	*str2;
+	char	*args;
+	int		i;
 
-	i = 0;
-	j = 0;
-	amount = 0;
-	while (s[i])
-	{
-		if (s[i] == '%')
-		{
-			amount += write(1, mat[j], ft_strlen(mat[j]));
-			j++;
-			i += 2;
-		}
-		else
-			amount += write(1, s + i++, 1);
-	}
-	return (amount - 1);
+	if (!s)
+		return (0);
+	str = ft_substrc(s, '%');
+	i = ft_strlen(str);
+	if (s[i] != '%')
+		return (str);
+	args = ft_strdup(ft_translate(&list, s[i + 1]));
+	str2 = ft_strjoin(str, args);
+	free(args);
+	free(str);
+	if (!s[i + 2])
+		return (str2);
+	str = str2;
+	args = ft_joinargs(s + i + 2, list);
+	str2 = ft_strjoin(str, args);
+	free(args);
+	free(str);
+	return (str2);
 }
 
 int	ft_printf(const char *s, ...)
 {
-	char	**mat;
-	int		amount;
+	char	*str;
 	va_list	list;
+	int		i;
 
-	if (!s)
-		return (0);
 	va_start(list, s);
-	mat = ft_args(s, list);
+	str = ft_joinargs(s, list);
 	va_end(list);
-	if (!mat)
-		return (ft_freemat((void *)mat));
-	amount = ft_printf_write(s, mat);
-	ft_freemat((void *)mat);
-	return (amount);
+	i = write(1, str, ft_strlen(str));
+	free(str);
+	return (i);
 }

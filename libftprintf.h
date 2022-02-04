@@ -5,18 +5,18 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgomez-b <dgomez-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/24 14:33:47 by dgomez-b          #+#    #+#             */
-/*   Updated: 2022/01/24 15:38:17 by dgomez-b         ###   ########.fr       */
+/*   Created: 2022/02/03 08:18:01 by dgomez-b          #+#    #+#             */
+/*   Updated: 2022/02/04 09:36:45 by dgomez-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
+#ifndef LIBFT_H
+# define LIBFT_H
 
-/* ******************************** LIBRARIES ******************************* */
+/* ******************************* LIBRARIES ******************************** */
 
+# include "libft/libft.h"
 # include <stdarg.h>
-# include "./libft/libft.h"
 
 /* ******************************* PROTOTIPES ******************************* */
 
