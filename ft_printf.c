@@ -5,25 +5,29 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgomez-b <dgomez-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/03 08:15:49 by dgomez-b          #+#    #+#             */
-/*   Updated: 2022/02/04 09:34:35 by dgomez-b         ###   ########.fr       */
+/*   Created: 2022/02/05 12:58:17 by dgomez-b          #+#    #+#             */
+/*   Updated: 2022/02/07 16:22:03 by dgomez-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* ******************************** LIBRARIES ******************************* */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 /* ******************************** FUNCTIONS ******************************* */
 
 static char	*ft_translate(va_list *list, char c)
 {
 	if (c == '%')
-		return (ft_strdup(&c));
+		return (ft_strdup("%"));
 	if (c == 'c')
-		return (ft_strdup(va_arg(*list, int)));
+		return (ft_printf_char(va_arg(*list, int)));
 	if (c == 's')
-		return (ft_strdup(va_arg(*list, char *)));
+		return (ft_printf_str(va_arg(*list, char *)));
+	if (c == 'i' || c == 'd')
+		return (ft_itoa(va_arg(*list, int)));
+	if (c == 'u')
+		return (ft_itoa(va_arg(*list, unsigned int)));
 	return (ft_strdup("\0"));
 }
 
@@ -54,7 +58,7 @@ static char	*ft_joinargs(const char *s, va_list list)
 	i = ft_strlen(str);
 	if (s[i] != '%')
 		return (str);
-	args = ft_strdup(ft_translate(&list, s[i + 1]));
+	args = ft_translate(&list, s[i + 1]);
 	str2 = ft_strjoin(str, args);
 	free(args);
 	free(str);

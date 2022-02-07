@@ -6,7 +6,7 @@
 #    By: dgomez-b <dgomez-b@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/04 09:32:45 by dgomez-b          #+#    #+#              #
-#    Updated: 2022/02/04 09:34:54 by dgomez-b         ###   ########.fr        #
+#    Updated: 2022/02/07 16:22:08 by dgomez-b         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ NAME	=		libftprintf.a
 
 LIBFT	=		./libft
 
-SRCS	=		ft_printf.c
+SRCS	=		ft_printf.c \
+				ft_printf_str.c \
+				ft_printf_char.c
 
 OBJS	=		$(SRCS:.c=.o)
 
