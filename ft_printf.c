@@ -6,7 +6,7 @@
 /*   By: dgomez-b <dgomez-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 12:58:17 by dgomez-b          #+#    #+#             */
-/*   Updated: 2022/02/07 16:22:03 by dgomez-b         ###   ########.fr       */
+/*   Updated: 2022/02/08 18:10:22 by dgomez-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ static char	*ft_translate(va_list *list, char c)
 		return (ft_itoa(va_arg(*list, int)));
 	if (c == 'u')
 		return (ft_itoa(va_arg(*list, unsigned int)));
+	if (c == 'x')
+		return (ft_itobase(va_arg(*list, int), "0123456789abcdef"));
+	if (c == 'X')
+		return (ft_itobase(va_arg(*list, int), "0123456789ABCDEF"));
 	return (ft_strdup("\0"));
 }
 

@@ -6,7 +6,7 @@
 #    By: dgomez-b <dgomez-b@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/04 09:32:45 by dgomez-b          #+#    #+#              #
-#    Updated: 2022/02/07 16:22:08 by dgomez-b         ###   ########.fr        #
+#    Updated: 2022/02/08 17:50:05 by dgomez-b         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ LIBFT	=		./libft
 
 SRCS	=		ft_printf.c \
 				ft_printf_str.c \
-				ft_printf_char.c
+				ft_printf_char.c \
+				ft_itobase.c
 
 OBJS	=		$(SRCS:.c=.o)
 

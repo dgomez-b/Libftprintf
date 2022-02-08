@@ -6,7 +6,7 @@
 /*   By: dgomez-b <dgomez-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 12:53:18 by dgomez-b          #+#    #+#             */
-/*   Updated: 2022/02/07 16:22:16 by dgomez-b         ###   ########.fr       */
+/*   Updated: 2022/02/08 18:48:08 by dgomez-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@
 int	ft_printf(const char *s, ...);
 char	*ft_printf_str(char *s);
 char	*ft_printf_char(char c);
+char	*ft_itobase(unsigned int i, char *base);
 
 #endif
