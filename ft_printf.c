@@ -6,7 +6,7 @@
 /*   By: dgomez-b <dgomez-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 12:58:17 by dgomez-b          #+#    #+#             */
-/*   Updated: 2022/02/09 13:39:33 by dgomez-b         ###   ########.fr       */
+/*   Updated: 2022/02/09 18:14:59 by dgomez-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,46 +30,43 @@ static char	*ft_substrc(const char *s, char c)
 	return (ft_substr(s, 0, i));
 }
 
-static int	ft_printf_write(const char *s, va_list list)
+static char	*ft_joinargs(const char *s, va_list list)
 {
-	char	**args;
-	int		pos;
-	int		cant;
+	char	*str;
+	char	*str2;
+	char	*args;
 	int		i;
-	
+
 	if (!s)
-		return ;
-	pos = 0;
-	cant = 0;
-	i = 0;
-	args = ft_args(s, list);
-	while(s[pos])
-	{
-		if (s[pos] != '%')
-			i += write(1, s + pos, 1);
-		else
-		{
-			i += write(1, args[cant], ft_strlen(args[cant]));
-			free(args[cant]);
-			pos++;
-			cant++;
-		}
-		pos++;
-	}
+		return (0);
+	str = ft_substrc(s, '%');
+	i = ft_strlen(str);
+	if (s[i] != '%')
+		return (str);
+	args = ft_translate(&list, s[i + 1]);
+	str2 = ft_strjoin(str, args);
 	free(args);
-	return (i);
+	free(str);
+	if (!s[i + 2])
+		return (str2);
+	str = str2;
+	args = ft_joinargs(s + i + 2, list);
+	str2 = ft_strjoin(str, args);
+	free(args);
+	free(str);
+	return (str2);
 }
 
 int	ft_printf(const char *s, ...)
 {
+	char	*str;
 	va_list	list;
 	int		i;
 
-	i = 0;
-	if (!s)
-		return (i);
 	va_start(list, s);
-	i = ft_printf_write(s, list);
+	str = ft_joinargs(s, list);
 	va_end(list);
+	i = write(1, str, ft_strlen(str));
+	free(str);
 	return (i);
 }
