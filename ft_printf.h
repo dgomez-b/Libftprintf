@@ -6,7 +6,7 @@
 /*   By: dgomez-b <dgomez-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 12:53:18 by dgomez-b          #+#    #+#             */
-/*   Updated: 2022/02/09 13:22:03 by dgomez-b         ###   ########.fr       */
+/*   Updated: 2022/02/10 17:24:49 by dgomez-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@
 
 /* ******************************* PROTOTIPES ******************************* */
 
-int	ft_printf(const char *s, ...);
+int		ft_printf(const char *s, ...);
 char	*ft_printf_str(char *s);
 char	*ft_printf_char(char c);
 char	*ft_itobase(unsigned int i, char *base);
 char	*ft_itov(unsigned long int n);
-char	**ft_args(const char *s, va_list list);
+char	**ft_args(const char *s, va_list *list);
 char	*ft_translate(va_list *list, char c);
+char	*ft_utoa(unsigned int u);
 
 #endif

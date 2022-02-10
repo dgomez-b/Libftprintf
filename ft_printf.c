@@ -6,7 +6,7 @@
 /*   By: dgomez-b <dgomez-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 12:58:17 by dgomez-b          #+#    #+#             */
-/*   Updated: 2022/02/10 11:36:16 by dgomez-b         ###   ########.fr       */
+/*   Updated: 2022/02/10 17:23:51 by dgomez-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 /* ******************************** FUNCTIONS ******************************* */
 
-static int	ft_printf_writer(const char *s, va_list list)
+static int	ft_printf_writer(const char *s, va_list *list)
 {
 	char	**args;
 	int		i;
@@ -42,16 +42,18 @@ static int	ft_printf_writer(const char *s, va_list list)
 			k += write(1, s + i - 1, 1);
 	}
 	free(args);
-	return(k);
+	return (k);
 }
 
 int	ft_printf(const char *s, ...)
 {
-	va_list	list;
+	va_list	*list;
 	int		i;
 
-	va_start(list, s);
+	list = ft_calloc(2, sizeof(va_list));
+	va_start(*list, s);
 	i = ft_printf_writer(s, list);
-	va_end(list);
+	va_end(*list);
+	free(list);
 	return (i);
 }

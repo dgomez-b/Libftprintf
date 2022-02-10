@@ -93,11 +93,10 @@ char	**ft_split(const char *s, char c)
 	if (!s)
 		return (0);
 	mat = ft_calloc(ft_cantword(s, c) + 1, sizeof(char *));
-	if (!mat)
-		return (0);
 	if (ft_cantchar(s, c) == ft_strlen(s))
 		return (mat);
-	j = (i = 0);
+	j = 0;
+	i = 0;
 	while (j < ft_cantword(s, c))
 	{
 		while (i < ft_strlen(s) && s[i] == c)

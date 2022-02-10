@@ -6,7 +6,7 @@
 #    By: dgomez-b <dgomez-b@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/04 09:32:45 by dgomez-b          #+#    #+#              #
-#    Updated: 2022/02/09 13:21:23 by dgomez-b         ###   ########.fr        #
+#    Updated: 2022/02/10 17:15:24 by dgomez-b         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SRCS	=		ft_printf.c \
 				ft_itobase.c \
 				ft_itov.c \
 				ft_translate.c \
-				ft_args.c
+				ft_args.c \
+				ft_utoa.c
 
 OBJS	=		$(SRCS:.c=.o)
 

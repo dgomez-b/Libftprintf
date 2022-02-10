@@ -6,7 +6,7 @@
 /*   By: dgomez-b <dgomez-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 12:52:14 by dgomez-b          #+#    #+#             */
-/*   Updated: 2022/02/09 13:33:04 by dgomez-b         ###   ########.fr       */
+/*   Updated: 2022/02/10 17:23:01 by dgomez-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	ft_cantchar(const char *s, char c)
 	return (cant);
 }
 
-char	**ft_args(const char *s, va_list list)
+char	**ft_args(const char *s, va_list *list)
 {
 	char	**args;
 	int		pos;
@@ -43,11 +43,11 @@ char	**ft_args(const char *s, va_list list)
 	cant = ft_cantchar(s, '%');
 	if (cant == 0)
 		return (0);
-	args = ft_calloc(cant, sizeof(char*));
+	args = ft_calloc(cant, sizeof(char *));
 	pos = 0;
 	cant = 0;
 	while (s[pos])
 		if (s[pos++] == '%')
-			args[cant++] = ft_translate(&list, s[pos++]);
+			args[cant++] = ft_translate(list, s[pos++]);
 	return (args);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itobase.c                                       :+:      :+:    :+:   */
+/*   ft_utoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dgomez-b <dgomez-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/08 17:33:56 by dgomez-b          #+#    #+#             */
-/*   Updated: 2022/02/10 17:23:38 by dgomez-b         ###   ########.fr       */
+/*   Created: 2022/02/10 17:07:03 by dgomez-b          #+#    #+#             */
+/*   Updated: 2022/02/10 17:26:30 by dgomez-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,24 @@
 
 /* ******************************** FUNCTIONS ******************************* */
 
-char	*ft_itobase(unsigned int i, char *base)
+char	*ft_utoa(unsigned int u)
 {
 	char	*str;
 	char	*str2;
-	char	*str3;
-	int		len;
+	char	*n;
 
-	if (!base)
-		return (0);
-	if (i == 0)
+	if (!u)
 		return (ft_strdup("0"));
-	len = ft_strlen(base);
-	str = ft_calloc(2, sizeof(char));
-	str3 = ft_strdup("\0");
-	while (i > 0)
+	n = ft_calloc(2, sizeof(char));
+	str2 = ft_strdup("\0");
+	while (u > 0)
 	{
-		*str = base[i % len];
-		i /= len;
-		str2 = ft_strjoin(str, str3);
-		free(str3);
-		str3 = str2;
+		*n = '0' + (u % 10);
+		u /= 10;
+		str = ft_strjoin(n, str2);
+		free(str2);
+		str2 = str;
 	}
-	free(str);
-	return (str3);
+	free(n);
+	return (str);
 }
