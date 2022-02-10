@@ -6,7 +6,7 @@
 /*   By: dgomez-b <dgomez-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 12:58:17 by dgomez-b          #+#    #+#             */
-/*   Updated: 2022/02/09 18:14:59 by dgomez-b         ###   ########.fr       */
+/*   Updated: 2022/02/10 09:13:13 by dgomez-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,57 +16,42 @@
 
 /* ******************************** FUNCTIONS ******************************* */
 
-static char	*ft_substrc(const char *s, char c)
+static char	*ft_printf_writer(const char *s, va_list list)
 {
-	int	i;
-
-	if (!s)
-		return (0);
-	if (!c)
-		return (ft_strdup(s));
-	i = 0;
-	while (s[i] && s[i] != c)
-		i++;
-	return (ft_substr(s, 0, i));
-}
-
-static char	*ft_joinargs(const char *s, va_list list)
-{
-	char	*str;
-	char	*str2;
-	char	*args;
+	char	**args;
 	int		i;
+	int		j;
+	int		k;
 
 	if (!s)
 		return (0);
-	str = ft_substrc(s, '%');
-	i = ft_strlen(str);
-	if (s[i] != '%')
-		return (str);
-	args = ft_translate(&list, s[i + 1]);
-	str2 = ft_strjoin(str, args);
+	args = ft_args(s, list);
+	i = 0;
+	j = 0;
+	k = 0;
+	while (s[i])
+	{
+		if (s[i++] == '%')
+		{
+			if (s[i++] == 'c' && *args[j] == 0)
+				k += write(1, args[j], 1);
+			k += write(1, args[j], ft_strlen(args[j]));
+			free(args[j++]);
+		}
+		else
+			k += write(1, s + i - 1, 1);
+	}
 	free(args);
-	free(str);
-	if (!s[i + 2])
-		return (str2);
-	str = str2;
-	args = ft_joinargs(s + i + 2, list);
-	str2 = ft_strjoin(str, args);
-	free(args);
-	free(str);
-	return (str2);
+	return(k);
 }
 
 int	ft_printf(const char *s, ...)
 {
-	char	*str;
 	va_list	list;
 	int		i;
 
 	va_start(list, s);
-	str = ft_joinargs(s, list);
+	i = ft_printf_writer(s, list);
 	va_end(list);
-	i = write(1, str, ft_strlen(str));
-	free(str);
 	return (i);
 }
