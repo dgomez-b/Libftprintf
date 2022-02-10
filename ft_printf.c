@@ -6,7 +6,7 @@
 /*   By: dgomez-b <dgomez-b@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 12:58:17 by dgomez-b          #+#    #+#             */
-/*   Updated: 2022/02/10 09:13:13 by dgomez-b         ###   ########.fr       */
+/*   Updated: 2022/02/10 11:36:16 by dgomez-b         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 /* ******************************** FUNCTIONS ******************************* */
 
-static char	*ft_printf_writer(const char *s, va_list list)
+static int	ft_printf_writer(const char *s, va_list list)
 {
 	char	**args;
 	int		i;
